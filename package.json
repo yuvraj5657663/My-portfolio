@@ -14,6 +14,7 @@
     "dev:frontend": "npm run dev --workspace=@my-portfolio/frontend",
     "dev:backend": "npm run dev --workspace=@my-portfolio/backend",
     "clean": "npm run clean --workspaces",
+    "test": "npm run test --workspaces --if-present",
     "seed-projects": "node database/seeders/seed-projects.js",
     "seed-admin": "node database/seeders/seed-admin.js"
   },
