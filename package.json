@@ -1,0 +1,11 @@
+{
+  "name": "my-portfolio-root",
+  "version": "1.0.0",
+  "description": "Root package for My Portfolio",
+  "scripts": {
+    "start": "npm run start --prefix frontend",
+    "dev": "npm run dev --prefix frontend",
+    "install-all": "npm install && npm install --prefix frontend",
+    "seed-projects": "npm run seed-projects --prefix frontend"
+  }
+}
