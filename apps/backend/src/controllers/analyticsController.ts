@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Visit } from '../models/Visits';
-import { sendSuccess, sendError } from '../utils/response';
+import { Visit } from '../models/Visits.js';
+import { sendSuccess, sendError } from '../utils/response.js';
 
 export const analyticsController = {
   recordVisit: async (req: Request, res: Response) => {

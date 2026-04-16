@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { Admin } from '../models/Admin';
-import { sendSuccess, sendError } from '../utils/response';
+import { Admin } from '../models/Admin.js';
+import { sendSuccess, sendError } from '../utils/response.js';
 
 export const authController = {
   login: async (req: Request, res: Response) => {

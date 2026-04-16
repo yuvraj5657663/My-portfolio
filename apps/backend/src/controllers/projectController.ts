@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Project } from '../models/Projects';
-import { sendSuccess, sendError } from '../utils/response';
+import { Project } from '../models/Projects.js';
+import { sendSuccess, sendError } from '../utils/response.js';
 
 export const projectController = {
   getProjects: async (req: Request, res: Response) => {

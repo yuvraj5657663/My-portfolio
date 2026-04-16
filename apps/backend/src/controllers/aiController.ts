@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { sendSuccess, sendError } from '../utils/response';
+import { sendSuccess, sendError } from '../utils/response.js';
 import { GoogleGenAI } from '@google/genai';
 
 let genAI: GoogleGenAI | null = null;

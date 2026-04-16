@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dns from 'dns';
-import { Project } from './src/models/Projects.js';
+import { Project } from '../../apps/backend/src/models/Projects.ts';
 
 // Force DNS to use Google's Public DNS to bypass local block
 dns.setServers(['8.8.8.8', '8.8.4.4']);
@@ -11,7 +11,7 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.join(__dirname, '../.env') });
+dotenv.config({ path: path.join(__dirname, '../../environments/.env.development') });
 
 const seedProjects = [
   {

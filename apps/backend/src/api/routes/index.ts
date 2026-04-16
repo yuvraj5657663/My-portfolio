@@ -1,12 +1,12 @@
 import { Router, Request, Response } from 'express';
-import { contactController } from '../controllers/contactController';
-import { projectController } from '../controllers/projectController';
-import { authController } from '../controllers/authController';
-import { analyticsController } from '../controllers/analyticsController';
-import { portfolioController } from '../controllers/portfolioController';
-import { aiController } from '../controllers/aiController';
-import { protect } from '../middleware/auth';
-import { contactLimiter } from '../middleware/rateLimiter';
+import { contactController } from '../../controllers/contactController.js';
+import { projectController } from '../../controllers/projectController.js';
+import { authController } from '../../controllers/authController.js';
+import { analyticsController } from '../../controllers/analyticsController.js';
+import { portfolioController } from '../../controllers/portfolioController.js';
+import { aiController } from '../../controllers/aiController.js';
+import { protect } from '../../middleware/auth.js';
+import { contactLimiter } from '../../middleware/rateLimiter.js';
 
 const router = Router();
 

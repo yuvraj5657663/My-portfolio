@@ -1,7 +1,7 @@
 ﻿import { Request, Response } from 'express';
-import { Contact } from '../models/Contact';
-import { sendSuccess, sendError } from '../utils/response';
-import { sendEmail } from '../utils/email';
+import { Contact } from '../models/Contact.js';
+import { sendSuccess, sendError } from '../utils/response.js';
+import { sendEmail } from '../utils/email.js';
 
 export const contactController = {
   submitContact: async (req: Request, res: Response) => {

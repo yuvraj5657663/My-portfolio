@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { sendError } from '../utils/response';
+import { sendError } from '../utils/response.js';
 
 export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);

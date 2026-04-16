@@ -1,12 +1,25 @@
 {
-  "name": "my-portfolio-root",
+  "name": "my-portfolio-monorepo",
   "version": "1.0.0",
-  "description": "Root package for My Portfolio",
+  "private": true,
+  "description": "Enterprise Monorepo for My Portfolio",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "start": "npm run start --prefix frontend",
-    "dev": "npm run dev --prefix frontend",
-    "install-all": "npm install && npm install --prefix frontend",
-    "seed-projects": "npm run seed-projects --prefix frontend",
-    "build": "npm run build --prefix frontend"
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "build": "npm run build --workspaces",
+    "start": "npm run start --workspace=apps/frontend",
+    "dev:frontend": "npm run dev --workspace=@my-portfolio/frontend",
+    "dev:backend": "npm run dev --workspace=@my-portfolio/backend",
+    "clean": "npm run clean --workspaces",
+    "seed-projects": "node database/seeders/seed-projects.js",
+    "seed-admin": "node database/seeders/seed-admin.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "rimraf": "^6.1.3",
+    "typescript": "~5.8.2"
   }
 }

@@ -2,9 +2,9 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
-import { apiLimiter } from './src/middleware/rateLimiter.js';
-import { errorHandler } from './src/middleware/error.js';
-import routes from './src/routes/index.js';
+import { apiLimiter } from './middleware/rateLimiter.js';
+import { errorHandler } from './middleware/error.js';
+import routes from './api/routes/index.js';
 const apiApp = express();
 
 // Trust proxy to allow express-rate-limit to correctly identify IPs behind reverse proxies
