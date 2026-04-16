@@ -6,3 +6,9 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Common IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
