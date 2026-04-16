@@ -2,7 +2,11 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dns from 'dns';
 import { Project } from './src/models/Projects.js';
+
+// Force DNS to use Google's Public DNS to bypass local block
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

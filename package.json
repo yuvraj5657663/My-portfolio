@@ -6,6 +6,7 @@
     "start": "npm run start --prefix frontend",
     "dev": "npm run dev --prefix frontend",
     "install-all": "npm install && npm install --prefix frontend",
-    "seed-projects": "npm run seed-projects --prefix frontend"
+    "seed-projects": "npm run seed-projects --prefix frontend",
+    "build": "npm run build --prefix frontend"
   }
 }
