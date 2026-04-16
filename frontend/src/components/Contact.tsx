@@ -45,7 +45,14 @@ export function Contact() {
         body: JSON.stringify(formData)
       });
 
-      const data = await res.json();
+      // Handle non-JSON responses (like Vercel 500 pages)
+      const contentType = res.headers.get('content-type');
+      let data;
+      if (contentType && contentType.includes('application/json')) {
+        data = await res.json();
+      } else {
+        throw new Error('Server returned a non-JSON response');
+      }
 
       if (data.success) {
         setSubmitStatus('success');
@@ -57,7 +64,7 @@ export function Contact() {
       }
     } catch (error) {
       setSubmitStatus('error');
-      setSubmitMessage('An error occurred. Please try again later.');
+      setSubmitMessage('The server is currently unable to process requests. Please ensure your Database and Environment Variables are configured on Vercel.');
     } finally {
       setIsSubmitting(false);
     }

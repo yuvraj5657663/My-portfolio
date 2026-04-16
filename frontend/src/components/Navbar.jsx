@@ -50,7 +50,9 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="/api/resume"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-2 rounded-xl bg-white text-black font-semibold text-[12px] hover:bg-zinc-200 transition-colors"
           >
             RESUME

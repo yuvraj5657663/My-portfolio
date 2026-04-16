@@ -5,11 +5,21 @@ import { connectDB } from '../frontend/src/config/db';
 let isConnected = false;
 const connect = async () => {
   if (isConnected) return;
-  await connectDB();
-  isConnected = true;
+  try {
+    await connectDB();
+    isConnected = true;
+  } catch (error) {
+    console.error('Failed to connect to DB in serverless function:', error);
+    throw error;
+  }
 };
 
 export default async (req: any, res: any) => {
-  await connect();
-  return apiApp(req, res);
+  try {
+    await connect();
+    return apiApp(req, res);
+  } catch (error) {
+    console.error('API Error:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
 };
