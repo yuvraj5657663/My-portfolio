@@ -17,13 +17,13 @@ export function Contact() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required';
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
+
     if (!formData.message.trim()) newErrors.message = 'Message is required';
 
     setErrors(newErrors);
@@ -32,7 +32,7 @@ export function Contact() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsSubmitting(true);
@@ -44,9 +44,9 @@ export function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      
+
       const data = await res.json();
-      
+
       if (data.success) {
         setSubmitStatus('success');
         setSubmitMessage('Message sent successfully! I will get back to you soon.');
@@ -84,9 +84,9 @@ export function Contact() {
         >
           {/* Background Glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-[#00D1FF]/5 to-transparent pointer-events-none" />
-          
+
           <div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-            
+
             {/* Left Column: Info */}
             <div className="text-left">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6">
@@ -95,7 +95,7 @@ export function Contact() {
               <p className="text-[15px] text-[#888] mb-12 leading-relaxed max-w-md">
                 Currently open to new opportunities. Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
               </p>
-  
+
               <div className="flex flex-col gap-4 mb-12">
                 <a
                   href="mailto:yuvrajkumar4588@gmail.com"
@@ -116,7 +116,7 @@ export function Contact() {
                   <span className="font-medium text-sm">+91-8434245164</span>
                 </a>
               </div>
-  
+
               <div className="flex items-center gap-6">
                 <a
                   href="https://linkedin.com/in/yuvraj-kumar564"
@@ -145,14 +145,13 @@ export function Contact() {
             <div className="bg-black/20 border border-white/5 rounded-2xl p-6 md:p-8">
               <form onSubmit={handleSubmit} className="space-y-5">
                 {submitStatus !== 'idle' && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`p-4 rounded-xl flex items-start gap-3 text-sm ${
-                      submitStatus === 'success' 
-                        ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400' 
+                    className={`p-4 rounded-xl flex items-start gap-3 text-sm ${submitStatus === 'success'
+                        ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
                         : 'bg-red-500/10 border border-red-500/20 text-red-400'
-                    }`}
+                      }`}
                   >
                     {submitStatus === 'success' ? <CheckCircle2 size={18} className="shrink-0 mt-0.5" /> : <AlertCircle size={18} className="shrink-0 mt-0.5" />}
                     <span>{submitMessage}</span>
@@ -162,25 +161,25 @@ export function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2">Name *</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       className={`w-full bg-black/50 border ${errors.name ? 'border-red-500/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-[#00D1FF]/50 transition-colors`}
-                      placeholder="John Doe"
+                      placeholder="full-name"
                     />
                     {errors.name && <span className="text-red-400 text-xs mt-1.5 block">{errors.name}</span>}
                   </div>
                   <div>
                     <label className="block text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2">Email *</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       className={`w-full bg-black/50 border ${errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-[#00D1FF]/50 transition-colors`}
-                      placeholder="john@example.com"
+                      placeholder="email@example.com"
                     />
                     {errors.email && <span className="text-red-400 text-xs mt-1.5 block">{errors.email}</span>}
                   </div>
@@ -188,8 +187,8 @@ export function Contact() {
 
                 <div>
                   <label className="block text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2">Subject</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
@@ -200,7 +199,7 @@ export function Contact() {
 
                 <div>
                   <label className="block text-[11px] font-semibold text-[#888] uppercase tracking-wider mb-2">Message *</label>
-                  <textarea 
+                  <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
@@ -211,8 +210,8 @@ export function Contact() {
                   {errors.message && <span className="text-red-400 text-xs mt-1.5 block">{errors.message}</span>}
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isSubmitting}
                   className="w-full group flex items-center justify-center gap-2 py-3.5 bg-[#00D1FF] text-black rounded-xl font-semibold text-sm hover:scale-[1.02] active:scale-[0.98] transition-transform disabled:opacity-70 disabled:hover:scale-100"
                 >

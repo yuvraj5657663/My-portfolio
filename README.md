@@ -1,2 +1,19 @@
-# My-portfolio
-A modern full stack developer portfolio showcasing my projects, skills, experience, and scalable web solutions built with MERN stack and modern technologies.
+# Yuvraj Kumar Portfolio
+
+## Tech Stack
+- React
+- Node.js
+- Express
+- MongoDB
+
+## Features
+- Contact Form
+- Project Showcase
+- Admin Dashboard
+- Responsive Design
+
+## Live Demo
+your-link
+
+## Installation
+npm run start
