@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
 apiApp.use(apiLimiter);
 
 // Routes
-apiApp.use('/', routes);
+apiApp.use('/api', routes);
 
 // Error Handling
 apiApp.use(errorHandler);

@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { motion } from 'motion/react';
 import { Mail, Phone, Linkedin, Github, ArrowUpRight, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { portfolioService } from '../services/portfolioService';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -39,32 +40,13 @@ export function Contact() {
     setSubmitStatus('idle');
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      // Handle non-JSON responses (like Vercel 500 pages)
-      const contentType = res.headers.get('content-type');
-      let data;
-      if (contentType && contentType.includes('application/json')) {
-        data = await res.json();
-      } else {
-        throw new Error('Server returned a non-JSON response');
-      }
-
-      if (data.success) {
-        setSubmitStatus('success');
-        setSubmitMessage('Message sent successfully! I will get back to you soon.');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        setSubmitStatus('error');
-        setSubmitMessage(data.message || 'Failed to send message. Please try again.');
-      }
-    } catch (error) {
+      await portfolioService.submitContact(formData);
+      setSubmitStatus('success');
+      setSubmitMessage('Message sent successfully! I will get back to you soon.');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error: any) {
       setSubmitStatus('error');
-      setSubmitMessage('The server is currently unable to process requests. Please ensure your Database and Environment Variables are configured on Vercel.');
+      setSubmitMessage(error.message || 'Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

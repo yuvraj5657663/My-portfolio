@@ -21,6 +21,11 @@ export const authController = {
           token,
         });
       } else {
+        if (process.env.NODE_ENV === 'development') {
+           console.log(`[AUTH] Login failed for: ${email}`);
+           if (!admin) console.log('[AUTH] Reason: User not found');
+           else console.log('[AUTH] Reason: Password incorrect');
+        }
         sendError(res, 'Invalid email or password', 401);
       }
     } catch (error) {
