@@ -1,25 +1,22 @@
 import nodemailer from 'nodemailer';
 
-export async function sendEmail(options: { to: string; subject: string; text: string; html?: string }) {
+export async function sendEmail(options: { to: string; subject: string; text: string; html?: string }): Promise<{ sent: boolean; reason?: string } | void> {
   const user = process.env.SMTP_USER || process.env.EMAIL_USER;
   const pass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
   const host = process.env.SMTP_HOST;
   const port = process.env.SMTP_PORT;
 
   if (!host || !port || !user || !pass) {
-    console.warn('SMTP configuration is incomplete. Email will not be sent.');
-    console.info('Config status:', { host: !!host, port: !!port, user: !!user, pass: !!pass });
-    return;
+    const missing = ['host', 'port', 'user', 'pass'].filter(k => !({ host, port, user, pass }[k]));
+    console.warn(`[Email] SMTP configuration incomplete. Missing: ${missing.join(', ')}. Email was NOT sent.`);
+    return { sent: false, reason: `SMTP config incomplete — missing: ${missing.join(', ')}` };
   }
 
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
+    host,
+    port: Number(port),
     secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-      user: user,
-      pass: pass,
-    },
+    auth: { user, pass },
   });
 
   await transporter.sendMail({
@@ -29,4 +26,6 @@ export async function sendEmail(options: { to: string; subject: string; text: st
     text: options.text,
     html: options.html,
   });
+
+  return { sent: true };
 }

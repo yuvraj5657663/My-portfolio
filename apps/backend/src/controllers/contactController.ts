@@ -20,7 +20,7 @@ export const contactController = {
         subject: `New Contact: ${subject || 'Portfolio Message'}`,
         text: `From: ${name} (${email})\n\nMessage:\n${message}`,
       });
-      if (!adminEmail.sent) {
+      if (adminEmail && !adminEmail.sent) {
         console.warn(`[Contact] Admin notification not sent: ${adminEmail.reason}`);
       }
 
@@ -30,7 +30,7 @@ export const contactController = {
         subject: 'Thank you for reaching out!',
         text: `Hi ${name},\n\nI have received your message and will get back to you shortly.\n\nBest regards,\nYuvraj Kumar`,
       });
-      if (!userEmail.sent) {
+      if (userEmail && !userEmail.sent) {
         console.warn(`[Contact] Auto-reply not sent to ${email}: ${userEmail.reason}`);
       }
 

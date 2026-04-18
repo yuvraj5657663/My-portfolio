@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 import { Admin } from '../models/Admin.js';
 
 export const connectDB = async () => {
+  console.log("env file",process.env.MONGODB_URI)
   try {
+
     const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio');
     console.log(`MongoDB Connected: ${conn.connection.host}`);
 
