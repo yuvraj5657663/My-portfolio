@@ -6,7 +6,7 @@ let genAI: GoogleGenAI | null = null;
 
 function getAIClient() {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || apiKey === '') {
+  if (!apiKey) {
     return null;
   }
   if (!genAI) {

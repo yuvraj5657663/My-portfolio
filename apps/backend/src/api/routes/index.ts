@@ -6,20 +6,20 @@ import { analyticsController } from '../../controllers/analyticsController.js';
 import { portfolioController } from '../../controllers/portfolioController.js';
 import { aiController } from '../../controllers/aiController.js';
 import { protect } from '../../middleware/auth.js';
-import { contactLimiter } from '../../middleware/rateLimiter.js';
+import { contactLimiter, apiLimiter } from '../../middleware/rateLimiter.js';
 
 const router = Router();
 
 // Public Routes
 router.post('/contact', contactLimiter, contactController.submitContact);
-router.get('/resume', portfolioController.getResume);
-router.get('/projects', projectController.getProjects);
-router.get('/skills', portfolioController.getSkills);
-router.get('/experience', portfolioController.getExperience);
-router.post('/visit', analyticsController.recordVisit);
+router.get('/resume', apiLimiter, portfolioController.getResume);
+router.get('/projects', apiLimiter, projectController.getProjects);
+router.get('/skills', apiLimiter, portfolioController.getSkills);
+router.get('/experience', apiLimiter, portfolioController.getExperience);
+router.post('/visit', apiLimiter, analyticsController.recordVisit);
 
 // AI Route (Skeleton)
-router.post('/chat', aiController.chat);
+router.post('/chat', apiLimiter, aiController.chat);
 
 // Admin Auth
 router.post('/auth/login', authController.login);

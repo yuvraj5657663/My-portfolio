@@ -1,40 +1,39 @@
-import api from './api';
+import api from "./api";
 
 export interface Project {
   _id: string;
   title: string;
   description: string;
-  techStack: string[];
-  liveLink?: string;
-  githubLink?: string;
-  featured: boolean;
+  technologies: string[];
+  link?: string;
+  github?: string;
+  image?: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export const projectService = {
-  // Public
-  getProjects: async (): Promise<Project[]> => {
-    const res: any = await api.get('/projects');
+  getProjects: async () => {
+    const res = await api.get("/projects");
     return res.data;
   },
 
-  // Admin
-  getAllProjects: async (): Promise<Project[]> => {
-    const res: any = await api.get('/admin/projects');
+  getAllProjects: async () => {
+    const res = await api.get("/admin/projects");
     return res.data;
   },
 
-  addProject: async (project: Omit<Project, '_id' | 'createdAt'>): Promise<Project> => {
-    const res: any = await api.post('/admin/projects', project);
+  addProject: async (data: any) => {
+    const res = await api.post("/admin/projects", data);
     return res.data;
   },
 
-  updateProject: async (id: string, project: Partial<Project>): Promise<Project> => {
-    const res: any = await api.put(`/admin/projects/${id}`, project);
+  updateProject: async (id: string, data: any) => {
+    const res = await api.put(`/admin/projects/${id}`, data);
     return res.data;
   },
 
-  deleteProject: async (id: string): Promise<void> => {
+  deleteProject: async (id: string) => {
     await api.delete(`/admin/projects/${id}`);
   },
 };

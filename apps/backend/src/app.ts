@@ -1,33 +1,26 @@
-import express from 'express';
-import helmet from 'helmet';
-import cors from 'cors';
-import morgan from 'morgan';
-import { apiLimiter } from './middleware/rateLimiter.js';
-import { errorHandler } from './middleware/error.js';
-import routes from './api/routes/index.js';
-const apiApp = express();
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
 
-// Trust proxy to allow express-rate-limit to correctly identify IPs behind reverse proxies
-apiApp.set('trust proxy', 1);
+import routes from "./api/routes/index.js";
+import { errorHandler } from "./middleware/error.js";
 
-// Security Middleware
-apiApp.use(helmet());
-apiApp.use(cors({ origin: process.env.APP_URL || '*' }));
-apiApp.use(express.json({ limit: '10kb' })); // Body parser with limit
-apiApp.use(express.urlencoded({ extended: true, limit: '10kb' }));
+const app = express();
 
-// Logging
-if (process.env.NODE_ENV !== 'production') {
-  apiApp.use(morgan('dev'));
-}
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    process.env.FRONTEND_URL || "https://yourfrontend.vercel.app"
+  ],
+  credentials: true
+}));
 
-// Rate Limiting
-apiApp.use(apiLimiter);
+app.use(helmet());
+app.use(express.json());
 
-// Routes
-apiApp.use('/api', routes);
+app.use("/api", routes);
 
-// Error Handling
-apiApp.use(errorHandler);
+// Global error handler — must be registered after all routes
+app.use(errorHandler);
 
-export { apiApp };
+export default app;

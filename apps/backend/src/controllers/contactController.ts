@@ -15,18 +15,24 @@ export const contactController = {
       const contact = await Contact.create({ name, email, subject, message });
 
       // Send notification to admin
-      await sendEmail({
+      const adminEmail = await sendEmail({
         to: process.env.ADMIN_EMAIL || 'yuvrajkumar4588@gmail.com',
         subject: `New Contact: ${subject || 'Portfolio Message'}`,
         text: `From: ${name} (${email})\n\nMessage:\n${message}`,
       });
+      if (!adminEmail.sent) {
+        console.warn(`[Contact] Admin notification not sent: ${adminEmail.reason}`);
+      }
 
       // Auto-reply to user
-      await sendEmail({
+      const userEmail = await sendEmail({
         to: email,
         subject: 'Thank you for reaching out!',
         text: `Hi ${name},\n\nI have received your message and will get back to you shortly.\n\nBest regards,\nYuvraj Kumar`,
       });
+      if (!userEmail.sent) {
+        console.warn(`[Contact] Auto-reply not sent to ${email}: ${userEmail.reason}`);
+      }
 
       sendSuccess(res, 'Message sent successfully', contact, 201);
     } catch (error) {

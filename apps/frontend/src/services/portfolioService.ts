@@ -35,7 +35,12 @@ export const portfolioService = {
     return res.data;
   },
 
-  submitContact: async (contact: { name: string; email: string; subject?: string; message: string }): Promise<void> => {
+  submitContact: async (contact: {
+    name: string;
+    email: string;
+    subject?: string;
+    message: string;
+  }): Promise<void> => {
     await api.post('/contact', contact);
   },
 
@@ -56,7 +61,10 @@ export const portfolioService = {
     await api.delete(`/admin/contacts/${id}`);
   },
 
-  updateContactStatus: async (id: string, isRead: boolean): Promise<Contact> => {
+  updateContactStatus: async (
+    id: string,
+    isRead: boolean
+  ): Promise<Contact> => {
     const res: any = await api.patch(`/admin/contacts/${id}`, { isRead });
     return res.data;
   },

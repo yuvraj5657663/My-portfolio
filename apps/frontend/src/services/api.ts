@@ -1,38 +1,32 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Request interceptor for adding auth token
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('adminToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('adminToken');
+  console.log('Attaching token to request:', token); // Debug log
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
-);
 
-// Response interceptor for handling common errors
+  return config;
+});
+
 api.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
+  (response) => response.data.data || response.data,
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('adminToken');
-      // Redirect to home/admin if needed, but for now just clear token
-    }
-    const message = error.response?.data?.message || 'Something went wrong';
-    return Promise.reject(new Error(message));
+    // if (error.response?.status === 401) {
+    //   localStorage.removeItem('adminToken');
+    // }
+
+    return Promise.reject(
+      new Error(error.response?.data?.message || 'Something went wrong')
+    );
   }
 );
 
